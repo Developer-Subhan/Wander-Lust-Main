@@ -1,0 +1,86 @@
+<style>
+  .btn-search:hover {
+    background-color: #fe424d;
+    color: white;
+
+  }
+
+  .btn-search {
+    border-radius: 3rem;
+    padding: 0 1rem 0 1rem;
+  }
+
+  .btn-search i {
+    display: inline;
+  }
+
+  .inp-search {
+    border-radius: 25px;
+    padding: 0.5 3rem 0.5rem 3rem;
+  }
+</style>
+<nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/"><i class="fa-solid fa-compass"></i></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link mb-2" href="/listing">Home</a>
+
+      </div>
+
+      <div class="navbar-nav ms-auto mb-2">
+        <form class="d-flex" role="search" action="/listing/search" method="GET">
+          <input class="form-control me-2" type="search" placeholder="Search destinations" aria-label="Search" name="q"/>
+          <button class=" btn btn-search" type="submit"><i
+              class="fa-solid fa-magnifying-glass-location"></i>&nbsp;Search</button>
+        </form>
+      </div>
+
+      <div class="navbar-nav ms-auto">
+        <% if(!currUser) {%>
+          <a class="nav-link btn btn-outline-success login mb-2" href="/signup"><i
+              class="fa-solid fa-user-plus"></i>&nbsp;Sign up</a>
+
+          &nbsp;&nbsp;&nbsp;
+          <a class="nav-link btn btn-outline-dark login mb-2" href="/login"><i
+              class="fa-solid fa-user"></i>&nbsp;Login</a>
+          <% } %>
+
+            <% if(currUser) {%>
+              <a class="nav-link add-listing" href="/listing/new"><i class="fa-solid fa-plus"></i>&nbsp;Add New
+                Listing</a>
+              &nbsp;&nbsp;&nbsp;
+              <a class="nav-link btn btn-danger logout" href="/logout"><i
+                  class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;Logout</a>
+              <% } %>
+      </div>
+    </div>
+  </div>
+</nav>
+<style>
+  .login,
+  .logout {
+    border: 1px solid black;
+  }
+
+  .login:hover,
+  .logout:hover {
+    color: white !important;
+    /* background-color: white !important; */
+    transform: scale(1.05);
+
+  }
+
+  .add-listing {
+    border-radius: 3rem;
+  }
+
+  .add-listing:hover {
+    color: white !important;
+    background-color: #198754 !important;
+  }
+</style>

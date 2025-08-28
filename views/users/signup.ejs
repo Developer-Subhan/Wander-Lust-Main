@@ -1,0 +1,51 @@
+<% layout("layouts/boilerplate") %>
+
+    <!-- Signup Form -->
+    <div class="row mt-3">
+        <h1 class="col-6 offset-3">SignUp on <b>Wanderlust</b></h1>
+        <div class="col-6 offset-3 mt-3">
+            <form action="/signup" method="post" class="needs-validation" novalidate>
+                <!-- Username Field -->
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" name="username" class="form-control" id="username" required>
+                    <div class="invalid-feedback">Username is required!</div>
+                </div>
+
+                <!-- Email Field -->
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" name="email" class="form-control" id="email" required>
+                </div>
+
+                <!-- Password Field -->
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <div class="input-group">
+                        <input type="password" name="password" class="form-control pass" id="password" required>
+                        <span class="input-group-text">
+                            <i class="bi bi-eye-slash" id="togglePassword" style="cursor: pointer;"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button class="btn btn-success">SignUP!</button>
+            </form>
+            <hr>
+        </div>
+    </div>
+    <script>
+  const togglePassword = document.querySelector("#togglePassword");
+  const passwordInput = document.querySelector("#password");
+
+  togglePassword.addEventListener("click", function () {
+    // Toggle password visibility
+    const type = passwordInput.type === "password" ? "text" : "password";
+    passwordInput.type = type;
+
+    // Toggle eye / eye-slash icon
+    this.classList.toggle("bi-eye");
+    this.classList.toggle("bi-eye-slash");
+  });
+</script>
