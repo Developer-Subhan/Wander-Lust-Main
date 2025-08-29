@@ -113,6 +113,10 @@ app.use((err, req, res, next) => {
   res.status(status).render("error.ejs", { message });
 });
 
+app.get("/test", (req, res) => {
+  res.send("Updates are working fine");
+})
+
 app.listen(8080, () => {
   console.log("Server is listening on port 8080");
 });
