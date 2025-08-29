@@ -26,7 +26,7 @@ owner: {
     ref: "User"
 },
 
-geometery: {
+geometry: {
     type: {
       type: String, 
       enum: ['Point'], 

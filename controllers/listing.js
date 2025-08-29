@@ -56,7 +56,7 @@ module.exports.createListing = async (req, res, next) => {
     newListing.owner = req.user._id;
     newListing.image = { url, filename };
 
-    newListing.geometery = result.features[0].geometry;
+    newListing.geometry = result.features[0].geometry;
 
     let savedListing = await newListing.save();
     console.log(savedListing);
@@ -101,7 +101,7 @@ module.exports.updateListing = async (req, res, next) => {
     }
 
     
-    listing.geometery = result.features[0].geometry;
+    listing.geometry = result.features[0].geometry;
     listing = await listing.save();
     req.flash("success", " Listing Edited Successfully");
     res.redirect(`/listing/${id}`);

@@ -10,7 +10,7 @@ const sampleListings = [
     location: "Malibu",
     country: "United States",
     category: "Beach-Related",
-    geometery: {
+    geometry: {
       type: "Point",
       coordinates: [-118.7798, 34.0259], // Malibu, CA
     },
@@ -26,7 +26,7 @@ const sampleListings = [
     location: "New York City",
     country: "United States",
     category: "Hotel",
-    geometery: {
+    geometry: {
       type: "Point",
       coordinates: [-74.006, 40.7128], // NYC
     },
@@ -42,7 +42,7 @@ const sampleListings = [
     location: "Aspen",
     country: "United States",
     category: "Adventure",
-    geometery: {
+    geometry: {
       type: "Point",
       coordinates: [-106.8175, 39.1911], // Aspen, CO
     },
@@ -58,7 +58,7 @@ const sampleListings = [
     location: "Florence",
     country: "Italy",
     category: "Resort",
-    geometery: {
+    geometry: {
       type: "Point",
       coordinates: [11.2558, 43.7699], // Florence, Italy
     },
@@ -74,7 +74,7 @@ const sampleListings = [
     location: "Santorini",
     country: "Greece",
     category: "Restaurant",
-    geometery: {
+    geometry: {
       type: "Point",
       coordinates: [25.4358, 36.3932], // Santorini, Greece
     },
@@ -90,7 +90,7 @@ const sampleListings = [
     location: "Bali",
     country: "Indonesia",
     category: "Adventure",
-    geometery: {
+    geometry: {
       type: "Point",
       coordinates: [115.1889, -8.4095], // Bali, Indonesia
     },
@@ -106,7 +106,7 @@ const sampleListings = [
     location: "Merzouga",
     country: "Morocco",
     category: "Resort",
-    geometery: {
+    geometry: {
       type: "Point",
       coordinates: [-3.9789, 31.1000], // Merzouga, Morocco
     },
@@ -122,7 +122,7 @@ const sampleListings = [
     location: "Cotswolds",
     country: "United Kingdom",
     category: "Other",
-    geometery: {
+    geometry: {
       type: "Point",
       coordinates: [-1.8433, 51.8330], // Cotswolds, UK
     },
