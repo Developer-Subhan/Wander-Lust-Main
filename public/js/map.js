@@ -57,4 +57,5 @@ geojson.features.forEach((marker) => {
     el.addEventListener('mouseleave', () => popup.remove());
 });
 
-console.log(listing.geometery.coordinates);
+console.log("Listing object:", listing);
+console.log("Coordinates:", listing.geometry?.coordinates);
