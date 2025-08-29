@@ -10,6 +10,7 @@ const sampleListings = [
     location: "Malibu",
     country: "United States",
     category: "Beach-Related",
+    owner: "68b1a8c2402a3a5a5e1e7641",
     geometry: {
       type: "Point",
       coordinates: [-118.7798, 34.0259], // Malibu, CA
@@ -26,6 +27,7 @@ const sampleListings = [
     location: "New York City",
     country: "United States",
     category: "Hotel",
+    owner: "68b1a8c2402a3a5a5e1e7641",
     geometry: {
       type: "Point",
       coordinates: [-74.006, 40.7128], // NYC
@@ -42,6 +44,7 @@ const sampleListings = [
     location: "Aspen",
     country: "United States",
     category: "Adventure",
+    owner: "68b1a8c2402a3a5a5e1e7641",
     geometry: {
       type: "Point",
       coordinates: [-106.8175, 39.1911], // Aspen, CO
@@ -58,6 +61,7 @@ const sampleListings = [
     location: "Florence",
     country: "Italy",
     category: "Resort",
+    owner: "68b1a8c2402a3a5a5e1e7641",
     geometry: {
       type: "Point",
       coordinates: [11.2558, 43.7699], // Florence, Italy
@@ -74,6 +78,7 @@ const sampleListings = [
     location: "Santorini",
     country: "Greece",
     category: "Restaurant",
+    owner: "68b1a8c2402a3a5a5e1e7641",
     geometry: {
       type: "Point",
       coordinates: [25.4358, 36.3932], // Santorini, Greece
@@ -84,12 +89,13 @@ const sampleListings = [
     description: "Stay high up in the trees in this eco-friendly treehouse. Great for adventurers seeking something unique.",
     image: {
       filename: "listingimage",
-      url: "https://images.unsplash.com/photo-1582719478191-8fffe146f1a7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=60",
+      url: "https://images.unsplash.com/photo-1604004218771-05c55db4f9f4?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     price: 800,
     location: "Bali",
     country: "Indonesia",
     category: "Adventure",
+    owner: "68b1a8c2402a3a5a5e1e7641",
     geometry: {
       type: "Point",
       coordinates: [115.1889, -8.4095], // Bali, Indonesia
@@ -100,12 +106,13 @@ const sampleListings = [
     description: "Spend nights under the stars in this luxurious desert glamping experience.",
     image: {
       filename: "listingimage",
-      url: "https://images.unsplash.com/photo-1529927066849-ec7f683f1e01?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=60",
+      url: "https://images.unsplash.com/photo-1677836157562-5e24481b6b69?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     price: 1800,
     location: "Merzouga",
     country: "Morocco",
     category: "Resort",
+    owner: "68b1a8c2402a3a5a5e1e7641",
     geometry: {
       type: "Point",
       coordinates: [-3.9789, 31.1000], // Merzouga, Morocco
@@ -122,6 +129,7 @@ const sampleListings = [
     location: "Cotswolds",
     country: "United Kingdom",
     category: "Other",
+    owner: "68b1a8c2402a3a5a5e1e7641",
     geometry: {
       type: "Point",
       coordinates: [-1.8433, 51.8330], // Cotswolds, UK
