@@ -95,7 +95,9 @@ app.get("/", (req, res) => {
 app.use("/listing", listingRoutor);
 app.use("/listing/:id/review", reviewRoutor);
 app.use("/", userRoutor);
-
+app.get("/test", (req, res) => {
+  res.send("Updates are working fine");
+});
 
 
 // PAGE NOT FOUND
@@ -113,9 +115,7 @@ app.use((err, req, res, next) => {
   res.status(status).render("error.ejs", { message });
 });
 
-app.get("/test", (req, res) => {
-  res.send("Updates are working fine");
-});
+
 
 app.listen(8080, () => {
   console.log("Server is listening on port 8080");
