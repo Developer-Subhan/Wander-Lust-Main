@@ -1,5 +1,4 @@
 
-
 const geojson = {
     'type': 'FeatureCollection',
     'features': [
@@ -20,7 +19,7 @@ const geojson = {
 const map = new maplibregl.Map({
   container: "map",
   style: "https://api.maptiler.com/maps/0198d78c-d3ed-79bf-a216-cc28f59b42f0/style.json?key=6Gpttf2hnuKUI9LmDtv2",
-  center: listing.geometery.coordinates,
+  center: listing.geometry.coordinates,
   zoom: 10,
   maplibreLogo: false,
 });
