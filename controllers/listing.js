@@ -42,23 +42,39 @@ module.exports.showListing = async (req, res, next) => {
 
 module.exports.createListing = async (req, res, next) => {
   try {
-    //Geocoding
+    // Geocoding
     const geocoderApi = createGeocoderApi();
     console.log(req.body.listing.location);
-    const result = await geocoderApi.forwardGeocode(req.body.listing.location);
-    console.log(result.features[0].geometry.coordinates);
 
-    //Adding Listing to DB
-    let url = req.file.path;
-    let filename = req.file.filename;
+    // Call the geocoder safely
+    const result = await geocoderApi.forwardGeocode(req.body.listing.location);
+
+    // Use first feature if exists, otherwise fallback coordinates
+    let coordinates;
+    if (result.features && result.features.length > 0) {
+      coordinates = result.features[0].geometry.coordinates;
+    } else {
+      console.warn(`Location not found: ${req.body.listing.location}. Using default coordinates.`);
+      coordinates = [72.5714, 33.6844]; // fallback coordinates (example: Islamabad)
+    }
+
+    // Prepare new listing
+    let url = req.file?.path;
+    let filename = req.file?.filename;
 
     const newListing = new Listing(req.body.listing);
     newListing.owner = req.user._id;
-    newListing.image = { url, filename };
+    if (url && filename) {
+      newListing.image = { url, filename };
+    }
 
-    newListing.geometry = result.features[0].geometry;
+    // Save geometry safely
+    newListing.geometry = {
+      type: 'Point',
+      coordinates
+    };
 
-    let savedListing = await newListing.save();
+    const savedListing = await newListing.save();
     console.log(savedListing);
 
     req.flash("success", "New Listing Created Successfully");
