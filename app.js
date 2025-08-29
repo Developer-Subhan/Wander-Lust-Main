@@ -95,9 +95,6 @@ app.get("/", (req, res) => {
 app.use("/listing", listingRoutor);
 app.use("/listing/:id/review", reviewRoutor);
 app.use("/", userRoutor);
-app.get("/test", (req, res) => {
-  res.send("Updates are working fine");
-});
 
 
 // PAGE NOT FOUND
