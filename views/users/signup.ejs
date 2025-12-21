@@ -1,51 +1,210 @@
 <% layout("layouts/boilerplate") %>
 
-    <!-- Signup Form -->
-    <div class="row mt-3">
-        <h1 class="col-6 offset-3">SignUp on <b>Wanderlust</b></h1>
-        <div class="col-6 offset-3 mt-3">
-            <form action="/signup" method="post" class="needs-validation" novalidate>
-                <!-- Username Field -->
-                <div class="mb-3">
-                    <label for="username" class="form-label">Username</label>
-                    <input type="text" name="username" class="form-control" id="username" required>
-                    <div class="invalid-feedback">Username is required!</div>
-                </div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 
-                <!-- Email Field -->
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" name="email" class="form-control" id="email" required>
-                </div>
+<style>
+    :root {
+        --brand-gradient: linear-gradient(135deg, #ff385c 0%, #bd1e59 100%);
+        --input-focus: #222222;
+        --glass-bg: rgba(255, 255, 255, 0.95);
+    }
 
-                <!-- Password Field -->
-                <div class="mb-3">
-                    <label for="password" class="form-label">Password</label>
-                    <div class="input-group">
-                        <input type="password" name="password" class="form-control pass" id="password" required>
-                        <span class="input-group-text">
-                            <i class="bi bi-eye-slash" id="togglePassword" style="cursor: pointer;"></i>
-                        </span>
-                    </div>
-                </div>
+    .signup-page-container {
+        min-height: 85vh;
+        background-color: #f7f7f7;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem 0;
+    }
 
-                <!-- Submit Button -->
-                <button class="btn btn-success">SignUP!</button>
-            </form>
-            <hr>
+    /* Elegant Floating Card */
+    .signup-card {
+        background: var(--glass-bg);
+        width: 100%;
+        max-width: 500px;
+        padding: 3.5rem;
+        border-radius: 28px;
+        border: 1px solid rgba(0,0,0,0.05);
+        box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        animation: fadeInUp 0.8s ease-out;
+    }
+
+    .brand-logo-anim {
+        width: 65px;
+        height: 65px;
+        background: var(--brand-gradient);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.5rem;
+        font-size: 1.8rem;
+        box-shadow: 0 10px 25px rgba(255, 56, 92, 0.3);
+    }
+
+    .signup-title {
+        font-weight: 800;
+        letter-spacing: -1.5px;
+        color: #222;
+        margin-bottom: 0.5rem;
+    }
+
+    .signup-title b {
+        color: #ff385c;
+    }
+
+    /* Refined Input Field Design */
+    .field-wrapper {
+        position: relative;
+        margin-bottom: 1.5rem;
+    }
+
+    .field-wrapper i.main-icon {
+        position: absolute;
+        left: 18px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #aaa;
+        transition: color 0.3s;
+        z-index: 5;
+    }
+
+    .form-control {
+        padding: 0.85rem 1rem 0.85rem 50px !important;
+        border-radius: 15px;
+        border: 2px solid #eee;
+        font-weight: 500;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .form-control:focus {
+        border-color: var(--input-focus);
+        box-shadow: 0 0 0 4px rgba(0,0,0,0.04);
+        background-color: #fff;
+    }
+
+    .form-control:focus + i.main-icon {
+        color: #ff385c;
+    }
+
+    /* The "Power" Button */
+    .btn-signup-main {
+        background: var(--brand-gradient);
+        border: none;
+        color: white;
+        width: 100%;
+        padding: 1.1rem;
+        border-radius: 15px;
+        font-weight: 700;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+        margin-top: 1rem;
+        box-shadow: 0 6px 20px rgba(255, 56, 92, 0.3);
+    }
+
+    .btn-signup-main:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 30px rgba(255, 56, 92, 0.5);
+        color: white;
+    }
+
+    /* Password Toggle Styling */
+    .pass-toggle {
+        position: absolute;
+        right: 18px;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        color: #888;
+        z-index: 10;
+        padding: 5px;
+    }
+
+    .pass-toggle:hover {
+        color: #222;
+    }
+
+    /* Validated State Animation */
+    .was-validated .form-control:invalid {
+        border-color: #dc3545;
+        background-image: none; /* Removing default icon for custom layout */
+    }
+</style>
+
+<div class="signup-page-container">
+    <div class="signup-card">
+        <div class="brand-logo-anim animate__animated animate__heartBeat">
+            <i class="fa-solid fa-compass"></i>
+        </div>
+        
+        <div class="text-center mb-5">
+            <h1 class="signup-title">Join <b>Wanderlust</b></h1>
+            <p class="text-muted">Create an account to start exploring unique stays.</p>
+        </div>
+
+        <form action="/signup" method="post" class="needs-validation" novalidate id="signupForm">
+            <div class="field-wrapper">
+                <i class="fa-solid fa-user-tag main-icon"></i>
+                <input type="text" name="username" class="form-control" placeholder="Username" required>
+                <div class="invalid-feedback ms-2">A unique username is required.</div>
+            </div>
+
+            <div class="field-wrapper">
+                <i class="fa-solid fa-envelope main-icon"></i>
+                <input type="email" name="email" class="form-control" placeholder="Email Address" required>
+                <div class="invalid-feedback ms-2">Please provide a valid email.</div>
+            </div>
+
+            <div class="field-wrapper">
+                <i class="fa-solid fa-shield-halved main-icon"></i>
+                <input type="password" name="password" id="password" class="form-control" placeholder="Create Password" required>
+                <i class="fa-regular fa-eye-slash pass-toggle" id="togglePassword"></i>
+                <div class="invalid-feedback ms-2">Choose a strong password.</div>
+            </div>
+
+            <button type="submit" class="btn-signup-main">
+                <span>Join the Adventure</span>
+                <i class="fa-solid fa-paper-plane ms-2"></i>
+            </button>
+        </form>
+
+        <div class="mt-4 text-center">
+            <hr class="mb-4">
+            <span class="text-muted small">Already part of the family?</span>
+            <a href="/login" class="small fw-bold text-dark text-decoration-none ms-1">Log in here</a>
         </div>
     </div>
-    <script>
-  const togglePassword = document.querySelector("#togglePassword");
-  const passwordInput = document.querySelector("#password");
+</div>
 
-  togglePassword.addEventListener("click", function () {
-    // Toggle password visibility
-    const type = passwordInput.type === "password" ? "text" : "password";
-    passwordInput.type = type;
+<script>
+    // Password Toggle with Micro-Animation
+    const togglePassword = document.querySelector("#togglePassword");
+    const passwordInput = document.querySelector("#password");
 
-    // Toggle eye / eye-slash icon
-    this.classList.toggle("bi-eye");
-    this.classList.toggle("bi-eye-slash");
-  });
+    togglePassword.addEventListener("click", function () {
+        const type = passwordInput.type === "password" ? "text" : "password";
+        passwordInput.type = type;
+
+        this.classList.toggle("fa-eye");
+        this.classList.toggle("fa-eye-slash");
+        
+        // Feedback animation
+        this.style.transform = "translateY(-50%) scale(1.2)";
+        setTimeout(() => {
+            this.style.transform = "translateY(-50%) scale(1)";
+        }, 150);
+    });
+
+    // Form Loading State
+    const signupForm = document.querySelector("#signupForm");
+    const signupBtn = document.querySelector(".btn-signup-main");
+
+    signupForm.addEventListener("submit", (e) => {
+        if (signupForm.checkValidity()) {
+            signupBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Preparing your journey...';
+            signupBtn.style.opacity = "0.8";
+        }
+    });
 </script>

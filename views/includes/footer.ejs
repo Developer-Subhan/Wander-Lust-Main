@@ -1,14 +1,176 @@
-<footer>
-    <div class="f-info">
-        <div class="f-info-socials">
-            <i class="fa-brands fa-square-facebook"></i>
-            <i class="fa-brands fa-square-instagram"></i>
-            <i class="fa-brands fa-linkedin"></i>
+<style>
+    :root {
+        --footer-bg: #ffffff;
+        --footer-border: #f1f1f1;
+        --footer-text-main: #222222;
+        --footer-text-muted: #6a6a6a;
+        --accent: #ff385c;
+    }
+
+    .main-footer {
+        background-color: var(--footer-bg);
+        border-top: 1px solid var(--footer-border);
+        padding: 5rem 0 2rem 0;
+        font-family: 'Inter', -apple-system, sans-serif;
+    }
+
+    /* Grid Layout */
+    .footer-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+        gap: 4rem;
+        margin-bottom: 4rem;
+    }
+
+    /* Brand Section */
+    .footer-brand-side h2 {
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: var(--footer-text-main);
+        letter-spacing: -1px;
+        margin-bottom: 1rem;
+    }
+
+    .footer-brand-side p {
+        color: var(--footer-text-muted);
+        line-height: 1.6;
+        font-size: 0.95rem;
+        max-width: 300px;
+    }
+
+    /* Column Styling */
+    .footer-column h5 {
+        font-size: 0.85rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 1.5rem;
+        color: var(--footer-text-main);
+    }
+
+    .footer-column ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .footer-column ul li {
+        margin-bottom: 0.8rem;
+    }
+
+    .footer-column ul li a {
+        text-decoration: none;
+        color: var(--footer-text-muted);
+        font-size: 0.9rem;
+        transition: color 0.2s ease;
+    }
+
+    .footer-column ul li a:hover {
+        color: var(--accent);
+    }
+
+    /* Bottom Bar */
+    .footer-bottom {
+        padding-top: 2rem;
+        border-top: 1px solid var(--footer-border);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .footer-legal {
+        display: flex;
+        gap: 2rem;
+        font-size: 0.85rem;
+        color: var(--footer-text-muted);
+    }
+
+    .footer-socials {
+        display: flex;
+        gap: 1.5rem;
+    }
+
+    .footer-socials a {
+        color: var(--footer-text-main);
+        font-size: 1.2rem;
+        transition: transform 0.2s ease;
+    }
+
+    .footer-socials a:hover {
+        transform: translateY(-3px);
+        color: var(--accent);
+    }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+        .footer-grid {
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .footer-grid {
+            grid-template-columns: 1fr;
+        }
+        .footer-bottom {
+            flex-direction: column;
+            gap: 1.5rem;
+            text-align: center;
+        }
+    }
+</style>
+
+<footer class="main-footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand-side">
+                <h2>WanderLust</h2>
+                <p>Discover unique stays and magical experiences around the world. Your next adventure starts here.</p>
+            </div>
+
+            <div class="footer-column">
+                <h5>Support</h5>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Safety information</a></li>
+                    <li><a href="#">Cancellation options</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h5>Hosting</h5>
+                <ul>
+                    <li><a href="/listing/new">Wanderlust your home</a></li>
+                    <li><a href="#">Hosting resources</a></li>
+                    <li><a href="#">Community forum</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h5>Wanderlust</h5>
+                <ul>
+                    <li><a href="#">Newsroom</a></li>
+                    <li><a href="#">Learn about new features</a></li>
+                    <li><a href="#">Careers</a></li>
+                </ul>
+            </div>
         </div>
-        <div class="f-info-brand">&copy; WanderLust Private Limited</div>
-        <div class="f-info-links">
-            <a href="/privacy">Privacy</a>
-            <a href="/terms">Terms</a>
+
+        <div class="footer-bottom">
+            <div class="footer-legal">
+                <span>&copy; 2025 WanderLust Inc.</span>
+                <a href="/privacy" class="text-decoration-none text-muted">Privacy</a>
+                <a href="/terms" class="text-decoration-none text-muted">Terms</a>
+                <a href="#" class="text-decoration-none text-muted">Sitemap</a>
+            </div>
+
+            <div class="footer-socials">
+                <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
         </div>
     </div>
 </footer>

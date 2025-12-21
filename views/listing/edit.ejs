@@ -1,86 +1,207 @@
 <% layout("layouts/boilerplate") %>
 
-    <!-- Edit Listing Form -->
-    <div class="row mt-3">
-        <div class="col-10 offset-1">
-            <h1>Edit your listing</h1>
+<style>
+    :root {
+        --accent-color: #ff385c; /* Modern brand red */
+        --bg-subtle: #f7f7f7;
+        --text-heading: #222222;
+        --border-radius-lg: 1.25rem;
+    }
 
-            <form action="/listing/<%= listing._id %>?_method=PATCH" method="POST" novalidate class="needs-validation"
-                enctype="multipart/form-data">
-                <!-- Title Field -->
-                <div class="mb-3">
-                    <label for="title" class="form-label">Title</label>
-                    <input name="listing[title]" value="<%= listing.title %>" class="form-control" required>
-                    <div class="invalid-feedback">Title is required!</div>
+    .edit-page-wrapper {
+        background-color: var(--bg-subtle);
+        min-height: 100vh;
+        padding: 4rem 0;
+    }
+
+    .form-container-card {
+        background: white;
+        border: none;
+        border-radius: var(--border-radius-lg);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+        padding: 3rem;
+    }
+
+    .form-section-title {
+        font-size: 0.85rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1.2px;
+        color: var(--accent-color);
+        margin-bottom: 1.5rem;
+        display: block;
+    }
+
+    .edit-h1 {
+        font-weight: 800;
+        letter-spacing: -1.5px;
+        color: var(--text-heading);
+        margin-bottom: 2.5rem;
+    }
+
+    /* Input Styling */
+    .form-control, .form-select {
+        border: 1.5px solid #ececec;
+        padding: 0.85rem 1.2rem;
+        border-radius: 12px;
+        font-size: 1rem;
+        transition: all 0.2s ease-in-out;
+    }
+
+    .form-control:focus {
+        border-color: var(--text-heading);
+        box-shadow: 0 0 0 4px rgba(34, 34, 34, 0.05);
+        background-color: #fff;
+    }
+
+    /* Image Preview Context */
+    .current-img-wrapper {
+        position: relative;
+        display: inline-block;
+        border-radius: 16px;
+        overflow: hidden;
+        border: 4px solid #fff;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+
+    .current-img-tag {
+        width: 100%;
+        max-width: 350px;
+        height: 200px;
+        object-fit: cover;
+        display: block;
+    }
+
+    .img-overlay-text {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(transparent, rgba(0,0,0,0.6));
+        color: white;
+        padding: 10px;
+        font-size: 0.75rem;
+        text-align: center;
+    }
+
+    /* Floating Submit Bar Effect */
+    .btn-update {
+        background-color: var(--text-heading);
+        color: white;
+        border: none;
+        padding: 1rem 3rem;
+        border-radius: 12px;
+        font-weight: 700;
+        transition: transform 0.2s, background-color 0.2s;
+    }
+
+    .btn-update:hover {
+        background-color: #000;
+        transform: translateY(-2px);
+        color: white;
+    }
+
+    .btn-cancel {
+        font-weight: 600;
+        color: #666;
+        text-decoration: none;
+        transition: color 0.2s;
+    }
+
+    .btn-cancel:hover {
+        color: var(--text-heading);
+    }
+</style>
+
+<div class="edit-page-wrapper">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-md-10">
+                
+                <div class="text-center mb-4">
+                    <h1 class="edit-h1">Edit Listing Details</h1>
                 </div>
 
-                <!-- Description Field -->
-                <div class="mb-3">
-                    <label for="description" class="form-label">Description</label>
-                    <textarea type="text" name="listing[description]" class="form-control"
-                        required><%= listing.description %></textarea>
-                    <div class="invalid-feedback">Enter short description!</div>
+                <div class="form-container-card">
+                    <form action="/listing/<%= listing._id %>?_method=PATCH" method="POST" novalidate class="needs-validation" enctype="multipart/form-data">
+                        
+                        <span class="form-section-title">Step 1: Core Information</span>
+                        
+                        <div class="mb-4">
+                            <label for="title" class="form-label fw-bold">Property Title</label>
+                            <input name="listing[title]" value="<%= listing.title %>" class="form-control" placeholder="e.g., Luxury Penthouse in Downtown" required>
+                            <div class="invalid-feedback">Please enter a descriptive title.</div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="description" class="form-label fw-bold">Description</label>
+                            <textarea name="listing[description]" class="form-control" rows="6" placeholder="Describe the ambiance, amenities, and surroundings..." required><%= listing.description %></textarea>
+                            <div class="invalid-feedback">Description cannot be empty.</div>
+                        </div>
+
+                        <div class="mb-5">
+                            <label for="category" class="form-label fw-bold">Category</label>
+                            <select class="form-select" name="listing[category]" required>
+                                <option value="">-- Choose Category --</option>
+                                <option value="Hotel" <%=listing.category==="Hotel" ? "selected" : "" %>>Hotel</option>
+                                <option value="Adventure" <%=listing.category==="Adventure" ? "selected" : "" %>>Adventure</option>
+                                <option value="Resort" <%=listing.category==="Resort" ? "selected" : "" %>>Resort</option>
+                                <option value="Beach-Related" <%=listing.category==="Beach-Related" ? "selected" : "" %>>Beach Related</option>
+                                <option value="Restaurant" <%=listing.category==="Restaurant" ? "selected" : "" %>>Restaurant</option>
+                                <option value="Other" <%=listing.category==="Other" ? "selected" : "" %>>Other</option>
+                            </select>
+                        </div>
+
+                        <span class="form-section-title">Step 2: Media & Visuals</span>
+                        
+                        <div class="row mb-5 align-items-center">
+                            <div class="col-md-6 mb-3 mb-md-0 text-center">
+                                <div class="current-img-wrapper">
+                                    <img src="<%= originalImageUrl %>" class="current-img-tag" alt="Current listing image">
+                                    <div class="img-overlay-text">Currently Displayed Photo</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="image" class="form-label fw-bold">Upload New Photo</label>
+                                <input type="file" name="listing[image]" class="form-control">
+                                <p class="text-muted mt-2 small">Recommended size: 1200x800px. JPEG or PNG only.</p>
+                            </div>
+                        </div>
+
+                        <span class="form-section-title">Step 3: Pricing & Location</span>
+
+                        <div class="row g-4 mb-5">
+                            <div class="col-md-4">
+                                <label for="price" class="form-label fw-bold">Price per Night</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white border-end-0">Rs</span>
+                                    <input type="number" name="listing[price]" class="form-control border-start-0" value="<%= listing.price %>" min="0" required>
+                                </div>
+                            </div>
+
+                            <div class="col-md-8">
+                                <label for="location" class="form-label fw-bold">Location / Address</label>
+                                <input type="text" name="listing[location]" class="form-control" value="<%= listing.location %>" placeholder="City, Area" required>
+                            </div>
+
+                            <div class="col-12">
+                                <label for="country" class="form-label fw-bold">Country</label>
+                                <input type="text" name="listing[country]" class="form-control" value="<%= listing.country %>" placeholder="e.g., Pakistan" required>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-center justify-content-between pt-4 border-top">
+                            <a href="/listing/<%= listing._id %>" class="btn-cancel">
+                                <i class="fa-solid fa-arrow-left me-2"></i>Back to Listing
+                            </a>
+                            <button class="btn btn-update shadow">
+                                <i class="fa-solid fa-cloud-arrow-up me-2"></i>Update Listing
+                            </button>
+                        </div>
+
+                    </form>
                 </div>
-
-                <div class="mb-3">
-                    <label for="category" class="form-label">Category</label>
-                    <select class="form-select" aria-label="Default select example" name="listing[category]">
-                        <option value="">-- Select a category --</option>
-                        <option value="Hotel" <%=listing.category==="Hotel" ? "selected" : "" %>>Hotel</option>
-                        <option value="Adventure" <%=listing.category==="Adventure" ? "selected" : "" %>>Adventure
-                        </option>
-                        <option value="Resort" <%=listing.category==="Resort" ? "selected" : "" %>>Resort</option>
-                        <option value="Beach-Related" <%=listing.category==="Beach-Related" ? "selected" : "" %>>Beach
-                            Related</option>
-                        <option value="Restaurant" <%=listing.category==="Restaurant" ? "selected" : "" %>>Restaurant
-                        </option>
-                        <option value="Other" <%=listing.category==="Other" ? "selected" : "" %>>Other</option>
-                    </select>
-                    <div class="invalid-feedback">Category is required!</div>
-                </div>
-
-                <div class="mb-3">
-                    Original Image:
-                    <br>
-                    <img src="<%= originalImageUrl %>" alt="previous_image_preview">
-                </div>
-
-                <!-- Image URL Field -->
-                <div class="mb-3">
-                    <label for="image" class="form-label">Upload Image</label>
-                    <input type="file" name="listing[image]" value="<%= listing.image %>" class="form-control">
-                </div>
-
-                <!-- Price and Location Row -->
-                <div class="row">
-                    <div class="mb-3 col-md-4">
-                        <label for="price" class="form-label">Price(Rs)</label>
-                        <input type="number" name="listing[price]" placeholder="Enter price" class="form-control"
-                            value="<%= listing.price %>" min="0" required>
-                        <div class="invalid-feedback">Price should be valid!</div>
-                    </div>
-
-                    <div class="mb-3 col-8">
-                        <label for="location" class="form-label">Location</label>
-                        <input type="text" name="listing[location]" placeholder="Enter location" class="form-control"
-                            value="<%= listing.location %>" required>
-                        <div class="invalid-feedback">Location should be valid!</div>
-                    </div>
-                </div>
-
-                <!-- Country Field -->
-                <div class="mb-3">
-                    <label for="country" class="form-label">Country</label>
-                    <input type="text" name="listing[country]" placeholder="Enter country" class="form-control"
-                        value="<%= listing.country %>" required>
-                    <div class="invalid-feedback">Country should be valid!</div>
-                </div>
-
-                <!-- Submit Button -->
-                <button class="btn btn-dark edit-btn mt-3"><i
-                        class="fa-solid fa-pen-to-square"></i>&nbsp;&nbsp;Edit</button>
-                <br>
-            </form>
-            <br>
+            </div>
         </div>
     </div>
+</div>

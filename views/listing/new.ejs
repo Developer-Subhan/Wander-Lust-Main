@@ -1,81 +1,178 @@
 <% layout("layouts/boilerplate") %>
 
-    <!-- Create Listing Form -->
-    <div class="row mt-3">
-        <div class="col-10 offset-1">
-            <br><br>
-            <h1>Create a new listing</h1>
+<style>
+    :root {
+        --brand-accent: #ff385c;
+        --soft-bg: #f8f9fa;
+        --deep-text: #222222;
+        --border-radius: 1rem;
+    }
 
-            <form action="/listing" method="post" novalidate class="needs-validation" enctype="multipart/form-data">
-                <!-- Title Field -->
-                <div class="mb-3">
-                    <label for="title" class="form-label">Title</label>
-                    <input type="text" name="listing[title]" placeholder="Add a catchy title" class="form-control"
-                        required>
-                    <div class="invalid-feedback">Title is required!</div>
+    .create-page-bg {
+        background-color: var(--soft-bg);
+        min-height: 100vh;
+        padding: 3rem 0;
+    }
+
+    .form-wrapper {
+        background: #ffffff;
+        border-radius: var(--border-radius);
+        box-shadow: 0 10px 40px rgba(0,0,0,0.06);
+        padding: 3rem;
+        border: 1px solid #ececec;
+    }
+
+    .create-h1 {
+        font-weight: 800;
+        letter-spacing: -1.5px;
+        color: var(--deep-text);
+        margin-bottom: 2rem;
+    }
+
+    .step-indicator {
+        font-size: 0.8rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--brand-accent);
+        margin-bottom: 1rem;
+        display: block;
+    }
+
+    /* Input Enhancements */
+    .form-control, .form-select {
+        border: 1.5px solid #eee;
+        border-radius: 12px;
+        padding: 0.8rem 1rem;
+        transition: all 0.2s;
+    }
+
+    .form-control:focus, .form-select:focus {
+        border-color: var(--deep-text);
+        box-shadow: 0 0 0 4px rgba(0,0,0,0.03);
+    }
+
+    .input-label {
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: #444;
+    }
+
+    /* Button Styling */
+    .btn-create {
+        background-color: var(--deep-text);
+        color: white;
+        border: none;
+        padding: 1rem 3rem;
+        border-radius: 12px;
+        font-weight: 700;
+        transition: transform 0.2s, background-color 0.2s;
+    }
+
+    .btn-create:hover {
+        background-color: #000;
+        transform: translateY(-2px);
+        color: white;
+    }
+
+    .price-input-group .input-group-text {
+        background: #fff;
+        border: 1.5px solid #eee;
+        border-right: none;
+        border-radius: 12px 0 0 12px;
+        font-weight: 600;
+    }
+
+    .price-input-group .form-control {
+        border-left: none;
+        border-radius: 0 12px 12px 0;
+    }
+</style>
+
+<div class="create-page-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2">
+                
+                <div class="mb-4 text-center">
+                    <h1 class="create-h1">Create a New Listing</h1>
+                    <p class="text-muted">Fill in the details below to share your place with the world.</p>
                 </div>
 
-                <!-- Description Field -->
-                <div class="mb-3">
-                    <label for="description" class="form-label">Description</label>
-                    <textarea type="text" name="listing[description]" placeholder="Enter description"
-                        class="form-control" required></textarea>
-                    <div class="invalid-feedback">Please write short description!</div>
+                <div class="form-wrapper">
+                    <form action="/listing" method="post" novalidate class="needs-validation" enctype="multipart/form-data">
+                        
+                        <span class="step-indicator">Basics</span>
+                        
+                        <div class="mb-4">
+                            <label for="title" class="input-label">Title</label>
+                            <input type="text" name="listing[title]" placeholder="e.g. Modern Loft in the Heart of the City" class="form-control" required>
+                            <div class="invalid-feedback">Please provide a catchy title for your listing.</div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="description" class="input-label">Description</label>
+                            <textarea name="listing[description]" placeholder="Describe the space, the vibe, and what makes it unique..." class="form-control" rows="5" required></textarea>
+                            <div class="invalid-feedback">A short description helps guests know what to expect.</div>
+                        </div>
+
+                        <div class="mb-5">
+                            <label for="category" class="input-label">Category</label>
+                            <select class="form-select" name="listing[category]" required>
+                                <option value="" selected disabled>-- Select a category --</option>
+                                <option value="Hotel">Hotel</option>
+                                <option value="Adventure">Adventure</option>
+                                <option value="Resort">Resort</option>
+                                <option value="Beach-Related">Beach Related</option>
+                                <option value="Restaurant">Restaurant</option>
+                                <option value="Other">Other</option>
+                            </select>
+                            <div class="invalid-feedback">Choosing a category helps with discoverability.</div>
+                        </div>
+
+                        <span class="step-indicator">Media</span>
+                        
+                        <div class="mb-5 p-4 bg-light rounded-4 border-1">
+                            <label for="image" class="input-label">Upload a High-Quality Image</label>
+                            <input type="file" name="listing[image]" class="form-control" required>
+                            <div class="invalid-feedback">A visual representation of your place is mandatory.</div>
+                            <small class="text-muted d-block mt-2">Images should be under 5MB. Horizontal shots look best.</small>
+                        </div>
+
+                        <span class="step-indicator">Location & Price</span>
+
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-5">
+                                <label for="price" class="input-label">Price per Night</label>
+                                <div class="input-group price-input-group">
+                                    <span class="input-group-text">Rs</span>
+                                    <input type="number" name="listing[price]" placeholder="0" class="form-control" min="0" required>
+                                </div>
+                                <div class="invalid-feedback">Please set a valid price.</div>
+                            </div>
+
+                            <div class="col-md-7">
+                                <label for="location" class="input-label">Location / Area</label>
+                                <input type="text" name="listing[location]" placeholder="e.g. Clifton, Karachi" class="form-control" required>
+                                <div class="invalid-feedback">Let guests know where the place is located.</div>
+                            </div>
+
+                            <div class="col-12">
+                                <label for="country" class="input-label">Country</label>
+                                <input type="text" name="listing[country]" placeholder="e.g. Pakistan" class="form-control" required>
+                                <div class="invalid-feedback">Country name is required.</div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center mt-5 pt-4 border-top">
+                            <a href="/listing" class="text-muted fw-bold text-decoration-none"><i class="fa-solid fa-chevron-left me-2"></i>Cancel</a>
+                            <button class="btn btn-create">
+                                <i class="fa-solid fa-plus-circle me-2"></i>Create Listing
+                            </button>
+                        </div>
+                    </form>
                 </div>
-
-                                             <div class="mb-3">
-                    <label for="category" class="form-label">Category</label>
-                    <select class="form-select" aria-label="Default select example" name="listing[category]" >
-                        <option value="">-- Select a category --</option>
-                        <option value="Hotel">Hotel</option>
-                        <option value="Adventure">Adventure</option>
-                        <option value="Resort">Resort</option>
-                        <option value="Beach-Related">Beach Related</option>
-                        <option value="Restaurant">Restaurant</option>
-                        <option value="Other">Other</option>
-                    </select>
-                    <div class="invalid-feedback">Category is required!</div>
-                </div>
-
-
-                <!-- Image Upload Field -->
-
-                <div class="mb-3">
-                    <label for="image" class="form-label">Upload image</label>
-                    <input type="file" name="listing[image]" placeholder="Enter image URL/link" class="form-control"
-                        required >
-                    <div class="invalid-feedback">Image is required!</div>
-                </div>
-
-                <!-- Price and Location Row -->
-                <div class="row">
-                    <div class="mb-3 col-md-4">
-                        <label for="price" class="form-label">Price(Rs)</label>
-                        <input type="number" name="listing[price]" placeholder="Enter price" class="form-control"
-                            value="1" min="0" required>
-                        <div class="invalid-feedback">Price should be valid!</div>
-                    </div>
-
-                    <div class="mb-3 col-8">
-                        <label for="location" class="form-label">Location</label>
-                        <input type="text" name="listing[location]" placeholder="Enter location" class="form-control"
-                            required>
-                        <div class="invalid-feedback">Location should be valid!</div>
-                    </div>
-                </div>
-
-                <!-- Country Field -->
-                <div class="mb-3">
-                    <label for="country" class="form-label">Country</label>
-                    <input type="text" name="listing[country]" placeholder="Enter country" class="form-control"
-                        required>
-                    <div class="invalid-feedback">Country should be valid!</div>
-                </div>
-
-                <!-- Submit Button -->
-                <button class="btn btn-success mt-3">Add</button>
-            </form>
+            </div>
         </div>
     </div>
-    <br>
-    <br>
+</div>
