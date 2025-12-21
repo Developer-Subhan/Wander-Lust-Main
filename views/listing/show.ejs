@@ -171,7 +171,13 @@
                                 <span class="h2 fw-bold mb-0">Rs<%= listing.price.toLocaleString("en-PK") %></span>
                                 <span class="text-muted fs-6"> /night</span>
                             </div>
-                            <div class="fw-bold"><i class="fa-solid fa-star text-danger"></i> 4.95</div>
+                            <div class="fw-bold"><i class="fa-solid fa-star text-danger"></i>      <% 
+                                let numOfReview = listing.reviews.length; 
+                                let totalRating = 0; 
+                                for(let oneRating of listing.reviews) { totalRating += oneRating.rating; } 
+                                let avgRating = numOfReview > 0 ? (totalRating / numOfReview).toFixed(1) : "0.0";
+                            %>
+                            <span class="fw-bold"><%= avgRating %></span> <span class="text-muted"> • <%= numOfReview %> total</span></div>
                         </div>
                         <hr class="my-4" style="opacity: 0.1;">
                         <div class="small text-muted mb-0 text-center">Standard local taxes and fees applied at checkout</div>
@@ -186,12 +192,7 @@
                     <h4 class="fw-bold mb-0">Guest Reviews</h4>
                     <div class="avg-rating-pill">
                         <i class="fa-solid fa-star text-warning"></i>
-                        <% 
-                            let numOfReview = listing.reviews.length; 
-                            let totalRating = 0; 
-                            for(let oneRating of listing.reviews) { totalRating += oneRating.rating; } 
-                            let avgRating = numOfReview > 0 ? (totalRating / numOfReview).toFixed(1) : "0.0";
-                        %>
+                       
                         <span class="fw-bold"><%= avgRating %></span> <span class="text-muted"> • <%= numOfReview %> total</span>
                     </div>
                 </div>
