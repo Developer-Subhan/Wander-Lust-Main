@@ -33,7 +33,6 @@ module.exports.showListing = async (req, res, next) => {
       req.flash("error", "Listing you requested does not exist");
       return res.redirect("/listing");
     }
-    console.log(listing);
     res.render("listing/show.ejs", { listing });
   } catch (err) {
     next(err);
@@ -44,9 +43,7 @@ module.exports.createListing = async (req, res, next) => {
   try {
     //Geocoding
     const geocoderApi = createGeocoderApi();
-    console.log(req.body.listing.location);
     const result = await geocoderApi.forwardGeocode(req.body.listing.location);
-    console.log(result.features[0].geometry.coordinates);
 
     //Adding Listing to DB
     let url = req.file.path;
@@ -59,8 +56,6 @@ module.exports.createListing = async (req, res, next) => {
     newListing.geometry = result.features[0].geometry;
 
     let savedListing = await newListing.save();
-    console.log(savedListing);
-
     req.flash("success", "New Listing Created Successfully");
     res.redirect(`/listing`);
   } catch (err) {
@@ -87,9 +82,7 @@ module.exports.renderEditForm = async (req, res, next) => {
 module.exports.updateListing = async (req, res, next) => {
   try {
     const geocoderApi = createGeocoderApi();
-    console.log(req.body.listing.location);
     const result = await geocoderApi.forwardGeocode(req.body.listing.location);
-    console.log(result.features[0].geometry.coordinates);
 
     let { id } = req.params;
     let listing = await Listing.findByIdAndUpdate(id, { ...req.body.listing });
@@ -114,7 +107,6 @@ module.exports.destroyListing = async (req, res, next) => {
   try {
     let { id } = req.params;
     let deletedListing = await Listing.findByIdAndDelete(id);
-    // console.log(deletedListing);
     req.flash("success", " Listing Deleted Successfully");
     res.redirect("/listing");
   } catch (err) {
@@ -187,13 +179,11 @@ module.exports.filter = async (req, res, next) => {
   const query = req.query.q || "";
 
   try {
-    console.log(query);
     const allListing = await Listing.find({
 
      category:  { $regex: query, $options: "i" }
 
     });
-    console.log(allListing);
     if(allListing.length === 0){
       return res.render("./notfound.ejs");
     }
